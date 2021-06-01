@@ -1,0 +1,23 @@
+body {
+    background-color: darkgreen;
+    color: white;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+}
+
+.Intro {
+    text-align: center;
+}
+
+.questionOpt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pad: 15%;
+}
