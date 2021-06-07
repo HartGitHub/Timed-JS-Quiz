@@ -5,7 +5,7 @@ const nextBtn = document.querySelector("#next-btn");
 //Question and answers
 const quizQuestions = document.querySelector("#quizQuestions");
 let questionEl = document.querySelector("#question");
-const buttonChoices = document.querySelector("#button-choices");
+const answerChoices = document.querySelector("#button-choices");
 const buttonSelected = document.querySelector(".btn-options");
 
 //Question variables
@@ -18,6 +18,7 @@ const timeEl = document.querySelector(".timeLeft");
 const timesUp = document.querySelector("#timesUp");
 let secondsLeft = 90;
 
+let score = 0;
 
 
 const questions = [
@@ -82,10 +83,22 @@ function setTime() {
 
 // WHEN I answer a question
 // THEN I am presented with another question
-
-//  function nextQuestion(question){
-// questionEl.innerHTML = question.question
+// debugger
+// function nextQuestion(question){
+// questionEl.innerHTML = question.question;
 // }
+
+questions.forEach(question => {
+  questionEl.innerHTML = question.question;
+});
+
+// questions.forEach(answerOptions =>{
+//   const button = document.createElement('button')
+//   button.innerHTML = answerOptions.textContent
+//   button.classList.add('btn')
+//   answerChoices.innerHTML = answerOptions.answerOptions
+//   answerOptions.appendChild(button)
+// })
 // // WHEN I answer a question incorrectly
 // // THEN time is subtracted from the clock
 // function wrongAnswer() {
@@ -108,4 +121,4 @@ function setTime() {
 
 // function answerSelected() {
 
-// }
+  // }
