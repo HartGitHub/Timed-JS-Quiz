@@ -37,9 +37,8 @@ body {
     grid-row: 1;
     font-size: xx-large;
 }
-
- .hidden { 
-    display: none;
+.hidden{
+    display:none
 }
 .btn-options {
     display: flex;
@@ -57,6 +56,8 @@ body {
     padding: 10px;
     border-radius: 20px;
     cursor: pointer;
+    gap: 8px;
+    margin: 7px;
 }
 
 .btn:hover {
@@ -75,7 +76,7 @@ color:darkblue;
     align-items: center;
 }
 
-#question {
+#quiz-question {
     color: rgb(251, 251, 251);
     display: flex;
     justify-content: center;
