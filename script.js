@@ -2,11 +2,18 @@
 const startBtn = document.querySelector("#start-btn");
 const nextBtn = document.querySelector("#next-btn");
 
+const btnClass = document.querySelectorAll(".btnOptions");
+
+// btnClass.addEventListener('click', function(event){
+//   debugger;
+//   console.log(event.target.innerHTML);
+// })
+
 let score = 0;
 
+let quizScores = [];
+
 //Question variables
-const totalQuestions = 3;
-let correctAnswer = true;
 let questionIndex = 0;
 
 //Timer variables
@@ -16,6 +23,7 @@ let secondsLeft = 150;
 
 const questions = [
   {
+    id: 0,
     question:
       "How many tutor sessions can a full-time UoFA bootcamp student get per week?",
     correctAnswer: "2",
@@ -23,6 +31,7 @@ const questions = [
   },
 
   {
+    id: 1,
     question: "How much wood can a wood chuck, chuck?",
     correctAnswer: "Depends",
     answerOptions: [
@@ -34,27 +43,26 @@ const questions = [
   },
 
   {
+    id: 2,
     question: "What is the best soda flavor?",
     correctAnswer: "Dr. Pepper",
     answerOptions: ["Pepsi", "Sprite", "Dr. Pepper", "SevenUp"],
   },
 ];
 
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
 startBtn.addEventListener("click", beginQuiz);
-//Once quiz starts, question with corresponding options populates
-//If answered correctly && time/questions remain, next question
-//else if subtract 10s && time/questions remain then present next question
-//else goto score and record initials & score
-//click clear score or try again
-//newQuestion function to show hidden/vis once answer selected?
+
 function beginQuiz() {
+  debugger;
   startBtn.classList.add("hidden");
+
   $("#quizQuestions").removeClass("hidden");
-  // .classList.remove("hidden")
+
   setTime();
-  nextQuestion();
+  //answerSelected();
+  nextQuestion(0);
+  //gameOver();
+  //renderScore();
 }
 
 function setTime() {
@@ -67,51 +75,81 @@ function setTime() {
   }, 1000);
 }
 
-//add variable to keep track of which question I'm currently on;
-// questionIndex:Whenever user clicks on answer; if correct move on else subtract time
-// if no more questions then end quiz
-//create function that ends if no time or if no questions left
-//prompt with initals once ending conditions met.
-//guard cluases exit functions early
-//local storage to store high scores from quiz
-//localStorage.setItem("Label", JSON.stringify(placeholder score
+function nextQuestion(questionIndex) {
+  $("#quiz-question").html(questions[questionIndex].question);
+  // $(questions[0].question[0]).appendTo("#quiz-questions")
+  $(".question-id").html(questions[questionIndex].id);
+  $("#btn1").html(questions[questionIndex].answerOptions[0]);
+  $("#btn2").html(questions[questionIndex].answerOptions[1]);
+  $("#btn3").html(questions[questionIndex].answerOptions[2]);
+  $("#btn4").html(questions[questionIndex].answerOptions[3]);
 
-// WHEN I answer a question
-// THEN I am presented with another question
-
-function nextQuestion() {
-  //needs to dynamically create buttons
-  //adds hidden class and removes for next question
-  for (let i = 0; i < questions.length; i++) {
-    $("#quiz-question").html(questions[i].question);
-    // $(questions[0].question[0]).appendTo("#quiz-questions")
-    $("#btn1").html(questions[i].answerOptions[0]);
-    $("#btn2").html(questions[i].answerOptions[1]);
-    $("#btn3").html(questions[i].answerOptions[2]);
-    $("#btn4").html(questions[i].answerOptions[3]);
-  }
+  // if(questionIndex==questions.length-1){
+  //   renderScore();
+  //   gameOver();
+  // }
 }
-//on button click check for answer.
+
+// function answerSelected(event) {
+//   debugger;
+//   questionIndex + 1;
+//   $(".btn-options").addClass("hidden");
+//   $("#quizQuestions").removeClass("hidden");
+//   let answer = questions.correctAnswer.textContent;
+//   if (answer === questions.answerOptions.textContent) {
+//     score += 100;
+//   }
+//   if (secondsLeft === 0 || questions.length > 3) {
+//     gameOver();
+//   }
+//   if (answer === questions[questionIndex].correctAnswer) {
+//     score += 100;
+//   } else {
+//     secondsLeft -= 15;
+//   }
 // }
-// // WHEN all questions are answered or the timer reaches 0
-// // THEN the game is over
-// // WHEN the game is over
-// // THEN I can save my initials and my score
-// function gameOver() {
-//function logScore() {
-//   userInitials saved to local storage followed by startQuiz function
-// // WHEN I answer a question incorrectly
-// // THEN time is subtracted from the clock
-// function wrongAnswer() {
-function answerSelected(event) {
-  let answer = event.target.textContent;
-  if (secondsLeft === 0 || questions.length > 3) {
-    gameOver();
-  }
-  if (answer === questions[questionIndex].correctAnswer) {
-    score += 100;
-  } else {
-    secondsLeft -= 15;
-  }
+//nextQuestion();
+
+function gameOver() {
+  $("#quizQuestions").addClass("hidden");
+  $("#highScoreForm").removeClass("hidden");
 }
-nextQuestion();
+
+function renderScore() {
+  let initialItem = document.createElement("li");
+  initialItem.innerHTML = document.getElementById("userScore").value;
+
+  let scoreItem = document.createElement("li");
+  scoreItem.innerHTML = localStorage.getItem("totalScore");
+
+  let listContainer = document.getElementById("localScores");
+
+  listContainer.appendChild(initialItem);
+  listContainer.appendChild(scoreItem);
+}
+
+for (let i = 0; i < btnClass.length; i++) {
+  debugger;
+  btnClass[i].addEventListener("click", function (event) {
+    const currentQuestionId = parseInt($(".question-id").html());
+    const selectedAnswer = event.target.innerHTML;
+
+    if (selectedAnswer == questions[currentQuestionId].correctAnswer) {
+      score += 100;
+    } else {
+      secondsLeft -= 50;
+    }
+
+    const nextQuestionIndex = currentQuestionId + 1;
+    if (nextQuestionIndex == 3) {
+      localStorage.setItem("totalScore", score);
+      //renderScore();
+
+      gameOver();
+    } else {
+      nextQuestion(nextQuestionIndex);
+    }
+  });
+}
+
+document.getElementById("scoreResult").addEventListener("click", renderScore);

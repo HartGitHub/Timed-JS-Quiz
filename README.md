@@ -1,1 +1,0 @@
-# Timed-JS-Quiz

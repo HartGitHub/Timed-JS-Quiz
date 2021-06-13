@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./style.css" />
     <title>Timed JS Quiz</title>
   </head>
@@ -14,25 +15,34 @@
     </div>
     <div class="container">
       <div id="quizQuestions" class="hidden">
+
         <div id="quiz-question"></div>
+        <div class="question-id hidden"></div>
         <div id="quiz-answer-choices" class="btn-options">
-          <button id="btn1"></button>
-          <button id="btn2"></button>
-          <button id="btn3"></button>
-          <button id="btn4"></button>
-          
+          <button id="btn1" class="btnOptions"></button>
+          <button id="btn2" class="btnOptions"></button>
+          <button id="btn3" class="btnOptions"></button>
+          <button id="btn4" class="btnOptions"></button>
         </div>
       </div>
+      <form id="highScoreForm" class="hidden">
+        <label for="userScore">Add your initials</label>
+        <input type="text" placeholder="Your Score..." name="userScore" id="userScore">
+        <span id="scoreResult" class="btn btn-primary">Get Result</span>
+      </form>
+      <ul id="localScores"></ul>
+
+      
       <div class="quizNavigationBtn">
         <button id="start-btn" class="start-btn btn">Start</button>
         <button id="next-btn" class="next-btn btn hidden">Next</button>
       </div>
     </div>
     <script
-  src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
-  integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
-  crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"
+    ></script>
     <script src="./script.js"></script>
-    
   </body>
 </html>
